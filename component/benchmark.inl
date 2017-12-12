@@ -142,6 +142,9 @@ int BenchMark<ScalarType>::run_benchmark(bool info, bool copyMethod, int benchma
     timer.start();
     for (int runs=0; runs<benchmarkNbrRun; ++runs)
     {
+        //std::cout << "      NZ :" << eigJ.nonZeros() << std::endl;
+        //eigJ = eigJ * eigJ;
+        //std::cout << "      NZ :" << eigJ.nonZeros() << std::endl;
         eigJtKJ = eigJ.transpose() * eigK * eigJ;
     }
     exec_time = timer.get();
@@ -155,11 +158,8 @@ int BenchMark<ScalarType>::run_benchmark(bool info, bool copyMethod, int benchma
     timer.start();
     for (int runs=0; runs<benchmarkNbrRun; ++runs)
     {
-                std::cout << "     ====> DIFFERENT MATRIX -- FAILURE !!"  << std::endl;
         vcl_compressed_KJ = viennacl::linalg::prod(vcl_compressed_K,vcl_compressed_J);
-                std::cout << "     ====> DIFFERENT MATRIX -- FAILURE !!"  << std::endl;
         vcl_compressed_JtKJ = viennacl::linalg::prod(vcl_compressed_Jt,vcl_compressed_KJ);
-                std::cout << "     ====> DIFFERENT MATRIX -- FAILURE !!"  << std::endl;
     }
     viennacl::backend::finish();
     exec_time = timer.get();

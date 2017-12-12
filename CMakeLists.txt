@@ -29,7 +29,11 @@ set(HEADER_FILES
     #component/libraries/cuSparse.hpp
 
         )
+set(CUDA_HEADER_FILES
 
+    component/libraries/mmio.h
+
+        )
 set(SOURCE_FILES
 
     main.cpp
@@ -39,8 +43,8 @@ set(SOURCE_FILES
         )
 set(CUDA_SOURCE_FILES
 
+    component/libraries/mmio.c
     main.cu
-
         )
 
 ####     EIGEN
@@ -76,7 +80,8 @@ endif(ENABLE_OPENCL)
 # Targets using CUDA
 if (ENABLE_CUDA)
     find_package(CUDA QUIET REQUIRED)
-    cuda_add_executable(benchmark_cu ${CUDA_SOURCE_FILES})
+    #set_source_files_properties(component/libraries/mmio.c PROPERTIES LANGUAGE CUDA)
+    cuda_add_executable(benchmark_cu ${CUDA_SOURCE_FILES} ${CUDA_HEADER_FILES})
 
     #####    LIBRARY LINKS               ############################################
     ####     CUDA
