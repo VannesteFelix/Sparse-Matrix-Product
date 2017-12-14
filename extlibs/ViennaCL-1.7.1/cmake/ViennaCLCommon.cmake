@@ -33,7 +33,7 @@ file(RELATIVE_PATH CONF_REL_INCLUDE_DIR "${INSTALL_CMAKE_DIR}"
 
 option(ENABLE_CUDA "Use the CUDA backend" OFF)
 
-option(BUILD_EXAMPLES "Build example programs" ON)
+option(BUILD_EXAMPLES "Build example programs" OFF)
 
 option(ENABLE_OPENCL "Use the OpenCL backend" ON)
 
