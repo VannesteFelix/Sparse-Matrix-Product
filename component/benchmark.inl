@@ -1,5 +1,11 @@
 #include "benchmark.hpp"
-
+#ifdef WINDOWS
+#include <direct.h>
+#define GetCurrentDir _getcwd
+#else
+#include <unistd.h>
+#define GetCurrentDir getcwd
+#endif
 
 inline double exec_time_ms(double time_sc){
     return time_sc*1000;
@@ -8,6 +14,11 @@ inline double exec_time_ms(double time_sc){
 template<typename ScalarType>
 int BenchMark<ScalarType>::run_benchmark(bool info, bool copyMethod, int benchmarkNbrRun)//string matName1,int mat1size1, int mat1size2 ,string matName2, int mat2size1, int mat2size2)
 {
+    char buff[FILENAME_MAX];
+    GetCurrentDir( buff, FILENAME_MAX );
+    std::string testdata_dir(buff);
+    testdata_dir.append("/examples/testdata");
+
     viennacl::tools::timer timer;
     double exec_time_read,exec_time_read_ublas,exec_time_copy,exec_time;
 
@@ -22,7 +33,7 @@ int BenchMark<ScalarType>::run_benchmark(bool info, bool copyMethod, int benchma
 
     ////////////////////////////////////////////////////////////////////////////////
     ///  EIGEN SPARSE MATRIX
-    Eigen::MatrixMarketIterator<ScalarType> eig_itrr("/home/ros-kinetic/libraries_test/src/testdata");
+    Eigen::MatrixMarketIterator<ScalarType> eig_itrr(testdata_dir);
     Eigen::SparseMatrix<ScalarType,Eigen::RowMajor> eigJtKJ(sizeJ,sizeJ);
     Eigen::SparseMatrix<ScalarType,Eigen::RowMajor> eigJtKJ_test(sizeJ,sizeJ);
     Eigen::SparseMatrix<ScalarType,Eigen::RowMajor> eigK(sizeK,sizeK);

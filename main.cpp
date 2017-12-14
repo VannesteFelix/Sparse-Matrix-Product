@@ -1,8 +1,18 @@
-#define BENCHMARK_RUNS          0
 #include "component/benchmark.hpp"
 
-int main()
+int main(int argc, char *argv[])
 {    
+    int benchMarkRun = 0;
+    if (argc < 2)
+    {
+        fprintf(stderr, "Usage: %s [BENCHMARK_RUNS_NUMBER]\n", argv[0]);
+        exit(1);
+    }
+    else
+    {
+        benchMarkRun = atoi(argv[1]);
+    }
+    std::cout << benchMarkRun << std::endl;
     BenchMark<double> myBenchMark_d;
     BenchMark<float> myBenchMark_f;
 
@@ -26,7 +36,7 @@ int main()
     //std::cout << "   # benchmarking single-precision" << std::endl;
     //std::cout << "   -------------------------------\n" << std::endl;
     //myBenchMark_f.run_benchmark(true);
-    //for (int runs=0; runs<BENCHMARK_RUNS; ++runs)
+    //for (int runs=0; runs<benchMarkRun; ++runs)
     //{
     //    myBenchMark_f.run_benchmark(false);
     //}
@@ -41,7 +51,7 @@ int main()
         std::cout << "   -------------------------------\n" << std::endl;
         myBenchMark_d.run_benchmark(true,true,1);
 //        myBenchMark_d.run_benchmark(true,false,1);
-        for (int runs=0; runs<BENCHMARK_RUNS; ++runs)
+        for (int runs=0; runs<benchMarkRun; ++runs)
         {
             myBenchMark_d.run_benchmark(false,true,1);
         }

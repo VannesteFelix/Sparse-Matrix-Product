@@ -20,7 +20,7 @@ set(ENABLE_CUDA ON)
 #message("${CMAKE_CXX_FLAGS_RELEASE}")
 #message("${CMAKE_CXX_FLAGS}")
 
-list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}")
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
 set(HEADER_FILES
 
@@ -47,6 +47,9 @@ set(CUDA_SOURCE_FILES
     main.cu
         )
 
+####     Subdirectories
+add_subdirectory(examples)
+
 ####     EIGEN
 set(EIGEN_LIBRARY_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/extlibs/eigen3")
 
@@ -56,7 +59,7 @@ set(VIENNACL_LIBRARY "${CMAKE_CURRENT_SOURCE_DIR}/extlibs/ViennaCL-1.7.1/build/l
 
 ####     OPENCL
 set(OPENCL_LIBRARY_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/extlibs/ViennaCL-1.7.1/CL")
-set(OPENCL_LIBRARY "/usr/lib/x86_64-linux-gnu/libOpenCL.so")
+set(OPENCL_LIBRARY "/usr/local/cuda-9.0/lib64/libOpenCL.so")
 
 ###########     COMPILATION FLAGS        ############################################
 
@@ -88,8 +91,8 @@ if (ENABLE_CUDA)
     include_directories(benchmark_cu PUBLIC ${CUDA_INCLUDE_DIRS})                   #  target_include_directories does not work with CUDA
     target_link_libraries(benchmark_cu ${CUDA_LIBRARY} ${CUDA_cusparse_LIBRARY})    #  so we include for all the project
     #####    VIENNACL
-    include_directories(benchmark_cu PUBLIC ${VIENNACL_LIBRARY_DIRECTORY})
-    target_link_libraries(benchmark_cu ${VIENNACL_LIBRARY})
+    #include_directories(benchmark_cu PUBLIC ${VIENNACL_LIBRARY_DIRECTORY})
+    #target_link_libraries(benchmark_cu ${VIENNACL_LIBRARY})
 
 
 endif(ENABLE_CUDA)

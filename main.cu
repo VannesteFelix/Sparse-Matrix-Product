@@ -518,5 +518,34 @@ int main(int argc, char *argv[]){
     duration = (( std::clock() - start ) / (double) CLOCKS_PER_SEC) * 1000;
     printf("COMPLETE PROCESS 2 TIME :                       %f ms\n", duration);
 
+    printf("\n-----------------------------------------------------------\n\n");
+
+    start = std::clock();
+    compute(myMat1,myMat2);
+    duration = (( std::clock() - start ) / (double) CLOCKS_PER_SEC) * 1000;
+    printf("COMPLETE PROCESS 2 TIME :                       %f ms\n", duration);
+
+    printf("\n-----------------------------------------------------------\n\n");
+
+    start = std::clock();
+    compute(myMat1,myMat2);
+    duration = (( std::clock() - start ) / (double) CLOCKS_PER_SEC) * 1000;
+    printf("COMPLETE PROCESS 2 TIME :                       %f ms\n", duration);
+
+    printf("\n-----------------------------------------------------------\n\n");
+
+    start = std::clock();
+    compute(myMat1,myMat2);
+    duration = (( std::clock() - start ) / (double) CLOCKS_PER_SEC) * 1000;
+    printf("COMPLETE PROCESS 2 TIME :                       %f ms\n", duration);
+
+    printf("\n-----------------------------------------------------------\n\n");
+
+    start = std::clock();
+    compute(myMat1,myMat2);
+    duration = (( std::clock() - start ) / (double) CLOCKS_PER_SEC) * 1000;
+    printf("COMPLETE PROCESS 2 TIME :                       %f ms\n", duration);
+
+
     return 0;
 }

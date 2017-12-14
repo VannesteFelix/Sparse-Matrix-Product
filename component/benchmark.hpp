@@ -15,7 +15,6 @@
 #include <boost/numeric/ublas/operation_sparse.hpp>
 #include <boost/numeric/ublas/lu.hpp>
 
-
 #include "viennacl/scalar.hpp"
 #include "viennacl/vector.hpp"
 #include "viennacl/coordinate_matrix.hpp"
@@ -32,13 +31,14 @@
 #include <sys/types.h>
 #include <dirent.h>
 
+#include <iostream>
+#include <vector>
+
 //  Eigen Sparse Matrix
 #include <Eigen/Sparse>
 #include <unsupported/Eigen/src/SparseExtra/MarketIO.h>
 #include <unsupported/Eigen/src/SparseExtra/MatrixMarketIterator.h>
 
-#include <iostream>
-#include <vector>
 
 template<class ScalarType>
 class BenchMark
