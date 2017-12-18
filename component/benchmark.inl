@@ -1,4 +1,29 @@
 #include "benchmark.hpp"
+
+#include <boost/numeric/ublas/triangular.hpp>
+#include <boost/numeric/ublas/vector.hpp>
+#include <boost/numeric/ublas/vector_proxy.hpp>
+#include <boost/numeric/ublas/matrix_sparse.hpp>
+#include <boost/numeric/ublas/operation_sparse.hpp>
+#include <boost/numeric/ublas/lu.hpp>
+
+#include "viennacl/scalar.hpp"
+#include "viennacl/vector.hpp"
+#include "viennacl/tools/timer.hpp"
+#include "viennacl/coordinate_matrix.hpp"
+#include "viennacl/compressed_matrix.hpp"
+#include "viennacl/ell_matrix.hpp"
+#include "viennacl/hyb_matrix.hpp"
+#include "viennacl/sliced_ell_matrix.hpp"
+#include "viennacl/linalg/prod.hpp"
+#include "viennacl/linalg/norm_2.hpp"
+#include "viennacl/io/matrix_market.hpp"
+
+//  Eigen Sparse Matrix
+#include <Eigen/Sparse>
+#include <unsupported/Eigen/src/SparseExtra/MarketIO.h>
+#include <unsupported/Eigen/src/SparseExtra/MatrixMarketIterator.h>
+
 #ifdef WINDOWS
 #include <direct.h>
 #define GetCurrentDir _getcwd
@@ -36,6 +61,7 @@ int BenchMark<ScalarType>::run_benchmark(bool info, bool copyMethod, int benchma
     Eigen::MatrixMarketIterator<ScalarType> eig_itrr(testdata_dir);
     Eigen::SparseMatrix<ScalarType,Eigen::RowMajor> eigJtKJ(sizeJ,sizeJ);
     Eigen::SparseMatrix<ScalarType,Eigen::RowMajor> eigJtKJ_test(sizeJ,sizeJ);
+    Eigen::SparseMatrix<ScalarType,Eigen::RowMajor> eigKJ_test(sizeK,sizeJ);
     Eigen::SparseMatrix<ScalarType,Eigen::RowMajor> eigK(sizeK,sizeK);
     Eigen::SparseMatrix<ScalarType,Eigen::RowMajor> eigJt(sizeJ,sizeK);
     Eigen::SparseMatrix<ScalarType,Eigen::RowMajor> eigJ(sizeK,sizeJ);
@@ -154,7 +180,7 @@ int BenchMark<ScalarType>::run_benchmark(bool info, bool copyMethod, int benchma
     for (int runs=0; runs<benchmarkNbrRun; ++runs)
     {
         //std::cout << "      NZ :" << eigJ.nonZeros() << std::endl;
-        //eigJ = eigJ * eigJ;
+        //eigJ = eigK * eigJ;
         //std::cout << "      NZ :" << eigJ.nonZeros() << std::endl;
         eigJtKJ = eigJ.transpose() * eigK * eigJ;
     }
@@ -203,5 +229,6 @@ int BenchMark<ScalarType>::run_benchmark(bool info, bool copyMethod, int benchma
         std::cout << "     ====> DIFFERENT MATRIX -- FAILURE !!"  << std::endl;
     }
 
+    //Eigen::saveMarket(eigJ,"matKJeig");
     return EXIT_SUCCESS;
 }
