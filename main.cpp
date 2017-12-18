@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
     {
         benchMarkRun = atoi(argv[1]);
     }
-    std::cout << benchMarkRun << std::endl;
+
     BenchMark<double> myBenchMark_d;
     BenchMark<float> myBenchMark_f;
 
@@ -49,7 +49,7 @@ int main(int argc, char *argv[])
         std::cout << "   -------------------------------" << std::endl;
         std::cout << "   # benchmarking double-precision" << std::endl;
         std::cout << "   -------------------------------\n" << std::endl;
-        myBenchMark_d.run_benchmark(true,true,1);
+        myBenchMark_d.run_benchmark(true,true,100);
 //        myBenchMark_d.run_benchmark(true,false,1);
         for (int runs=0; runs<benchMarkRun; ++runs)
         {
